@@ -1,0 +1,37 @@
+<!doctype html>
+<html>
+<head>
+	<title>3D Multiplayer Game</title>
+	<link rel='stylesheet' href="css/main.css" />
+	<script src="https://www.gstatic.com/firebasejs/3.0.0/firebase.js"></script>
+	<!-- <script src="js/lib/three.js"></script> -->
+	<script src="https://threejs.org/build/three.min.js"></script>
+	<script src="js/lib/PlayerControls.js"></script>
+	<script src="https://threejs.org/examples/js/loaders/MTLLoader.js"></script>
+	<script src="https://threejs.org/examples/js/loaders/OBJLoader.js"></script>
+
+	<script>
+	// Initialize Firebase
+	    const firebaseConfig = {
+	      apiKey: "AIzaSyAeiPJaBMPFhZJlooH752RYMFMSe8mJQ8Y",
+	      authDomain: "v-playa.firebaseapp.com",
+	      databaseURL: "https://v-playa.firebaseio.com",
+	      projectId: "v-playa",
+	      storageBucket: "v-playa.appspot.com",
+	      messagingSenderId: "732878082283",
+	      appId: "1:732878082283:web:2d2a802b7d5def09f26eae",
+	      measurementId: "G-VEWJBCLFM6"
+	    };
+	    firebase.initializeApp(firebaseConfig);
+
+		var fbRef = firebase.database().ref("data");
+	</script>
+</head>
+<body>
+	<div id='textbox' style="display:fixed;"><textarea style="width:200px;">Use arrow keys to move your cube. Zoom out with trackpad to see everything. Click and drag to look around.</textarea></div>
+	<div id='container'></div>
+	<script src="js/player.js"></script>
+	<script src="js/game.js"></script>
+	<script src="js/main.js"></script>
+</body>
+</html>
