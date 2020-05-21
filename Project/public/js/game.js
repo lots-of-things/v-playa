@@ -75,17 +75,37 @@ function loadEnvironment() {
 	scene.add( light );
 
 	var mtlLoader = new THREE.MTLLoader();
-	mtlLoader.load( 'models/obj.mtl', function( materials ) {
+	mtlLoader.load( 'models/qmb.mtl', function( materials ) {
 
 	  materials.preload();
 
 	  var objLoader = new THREE.OBJLoader();
 	  objLoader.setMaterials( materials );
-	  objLoader.load( 'models/tinker.obj', function ( object ) {
+	  objLoader.load( 'models/qmb.obj', function ( object ) {
 
 	    object.rotation.x = -Math.PI/2;
 		object.translateY(10);
 		object.scale.set(0.1,0.1,0.1);
+		scene.add( object );
+
+	  } );
+
+	} );
+
+	var mtlLoader = new THREE.MTLLoader();
+	mtlLoader.load( 'models/StarportV3.mtl', function( materials ) {
+
+	  materials.preload();
+
+	  var objLoader = new THREE.OBJLoader();
+	  objLoader.setMaterials( materials );
+	  objLoader.load( 'models/StarportV3.obj', function ( object ) {
+
+	    // object.rotation.x = -Math.PI/2;
+		object.translateY(11);
+		object.translateX(-40);
+		object.translateZ(10);
+		// object.scale.set(0.1,0.1,0.1);
 		scene.add( object );
 
 	  } );
