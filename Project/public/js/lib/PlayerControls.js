@@ -318,8 +318,25 @@ THREE.PlayerControls = function ( camera, player, domElement ) {
 
 		if ( scope.enabled === false ) return;
 		if ( scope.userRotate === false ) return;
-
 		event.preventDefault();
+
+
+		mouse.x = ( event.clientX / renderer.domElement.clientWidth ) * 2 - 1;
+		mouse.y = - ( event.clientY / renderer.domElement.clientHeight ) * 2 + 1;
+
+			// update the picking ray with the camera and mouse position
+		raycaster.setFromCamera( mouse, camera );
+
+		// calculate objects intersecting the picking ray
+		var intersects = raycaster.intersectObjects( objects, true );
+		console.log(intersects)
+		for ( var i = 0; i < intersects.length; i++ ) {
+			console.log(intersects[i].object.userData)
+			if (intersects[i].object.userData.URL != null){
+	    		window.open(intersects[i].object.userData.URL, '_blank');
+	    		break;
+	    	}
+		}
 
 		if ( event.button === 0 ) {
 
@@ -437,6 +454,8 @@ THREE.PlayerControls = function ( camera, player, domElement ) {
 
     }
 
+    raycaster = new THREE.Raycaster(); // create once
+	mouse = new THREE.Vector2(); // create once
 	this.domElement.addEventListener('contextmenu', function( event ) { event.preventDefault(); }, false );
 	this.domElement.addEventListener('mousedown', onMouseDown, false );
 	this.domElement.addEventListener('mousewheel', onMouseWheel, false );

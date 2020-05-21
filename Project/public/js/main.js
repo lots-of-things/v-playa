@@ -1,4 +1,6 @@
-var container, scene, camera, renderer;
+var container, scene, camera, renderer, objects;
+
+objects = [];
 
 var controls;
 
@@ -30,11 +32,8 @@ function init() {
 
 			fbRef.child( "Players/" + playerID + "/isOnline" ).once( "value" ).then( function( isOnline ) {
 
-				if ( isOnline.val() === null || isOnline.val() === false ) {
-					loadGame();
-				} else {
-					alert( "Hey, only one session at a time buddy!" );
-				}
+				loadGame();
+
 			});
 
 

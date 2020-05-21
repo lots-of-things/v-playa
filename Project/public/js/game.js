@@ -88,7 +88,6 @@ function loadEnvironment() {
 		object.translateX(-20);
 		object.scale.set(0.1,0.1,0.1);
 		scene.add( object );
-
 	  } );
 
 	} );
@@ -112,6 +111,72 @@ function loadEnvironment() {
 	  } );
 
 	} );
+
+	var loader = new THREE.FontLoader();
+	loader.load( 'fonts/helvetiker_bold.typeface.json', function ( font ) {
+
+		var  textGeo = new THREE.TextGeometry('QMB', {
+            size: 10,
+            height: 5,
+            curveSegments: 6,
+            font: font,
+    	});
+    	var realTextGeo = new THREE.BufferGeometry
+
+    	realTextGeo.fromGeometry(textGeo)
+		var color = new THREE.Color( 0xe25822 );
+		var  textMaterial = new THREE.MeshBasicMaterial({ color: color });
+		var  text = new THREE.Mesh(realTextGeo , textMaterial);
+		text.scale.set(0.05,0.05,0.05);
+		text.translateX(-12);
+		text.translateZ(-20);
+		text.translateY(0.1);
+		text.userData.URL = "https://quantum-multiverse-bifurcator.appspot.com"
+		scene.add(text);
+		objects.push(text);
+
+		var geometry = new THREE.BoxGeometry( 2, 1.5, 0.5 );
+		var material = new THREE.MeshBasicMaterial( {color: 0x222222} );
+		var cube = new THREE.Mesh( geometry, material );
+		cube.translateX(-11.4);
+		cube.translateZ(-20.1);
+		cube.userData.URL = "https://quantum-multiverse-bifurcator.appspot.com"
+		scene.add( cube );
+		objects.push(cube);
+
+
+		// StarPort
+		var  textGeo = new THREE.TextGeometry('StarPort', {
+            size: 10,
+            height: 5,
+            curveSegments: 6,
+            font: font,
+    	});
+    	var realTextGeo = new THREE.BufferGeometry
+
+    	realTextGeo.fromGeometry(textGeo)
+		var color = new THREE.Color( 0xe25822 );
+		var  textMaterial = new THREE.MeshBasicMaterial({ color: color });
+		var  text = new THREE.Mesh(realTextGeo , textMaterial);
+		text.scale.set(0.05,0.05,0.05);
+		text.translateX(-36);
+		text.translateZ(-5.0);
+		text.translateY(0.1);
+		text.userData.URL = "https://youtu.be/bcIZu4xEqUM"
+		scene.add(text);
+		objects.push(text);
+
+		var geometry = new THREE.BoxGeometry( 4, 1.5, 0.5 );
+		var material = new THREE.MeshBasicMaterial( {color: 0x222222} );
+		var cube = new THREE.Mesh( geometry, material );
+		cube.translateX(-34);
+		cube.translateZ(-5.1);
+		cube.userData.URL = "https://youtu.be/bcIZu4xEqUM"
+		scene.add( cube );
+		objects.push(cube);
+	} );
+
+
 
 
 	var geometry = new THREE.PlaneGeometry( 1000, 1000 );
