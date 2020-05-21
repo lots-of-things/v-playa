@@ -84,7 +84,8 @@ function loadEnvironment() {
 	  objLoader.load( 'models/qmb.obj', function ( object ) {
 
 	    object.rotation.x = -Math.PI/2;
-		object.translateY(10);
+		object.translateY(30);
+		object.translateX(-20);
 		object.scale.set(0.1,0.1,0.1);
 		scene.add( object );
 
@@ -116,7 +117,7 @@ function loadEnvironment() {
 	var geometry = new THREE.PlaneGeometry( 1000, 1000 );
 	var material = new THREE.MeshBasicMaterial( {color: 0xffff00, side: THREE.DoubleSide} );
 	var img = new THREE.MeshBasicMaterial({ //CHANGED to MeshBasicMaterial
-        map:THREE.ImageUtils.loadTexture('models/brc.svg')
+        map:THREE.ImageUtils.loadTexture('models/brc.png')
     });
     img.map.needsUpdate = true; //ADDED
 

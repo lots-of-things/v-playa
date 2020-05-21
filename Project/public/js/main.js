@@ -13,6 +13,7 @@ function init() {
 
 	camera = new THREE.PerspectiveCamera( 50, window.innerWidth / window.innerHeight, 1, 1000 );
 	camera.position.z = 5;
+	camera.zoom = 0.5;
 
 	renderer = new THREE.WebGLRenderer( { alpha: true} );
 	renderer.setSize( window.innerWidth, window.innerHeight);
@@ -61,7 +62,7 @@ function animate() {
 	if ( controls ) {
 		controls.update();
 	}
-	
+
 	render();
 }
 
@@ -74,6 +75,6 @@ function render() {
 function onWindowResize() {
 	camera.aspect = window.innerWidth / window.innerHeight;
 	camera.updateProjectionMatrix();
-	
+
 	renderer.setSize( window.innerWidth, window.innerHeight );
 }
