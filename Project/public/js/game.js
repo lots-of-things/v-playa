@@ -141,7 +141,7 @@ function loadEnvironment() {
 		}
 
 		addSign('QMB', 'https://quantum-multiverse-bifurcator.appspot.com', -12, -20, 2, 0.6)
-		addSign('StarPort', 'https://youtu.be/bcIZu4xEqUM', -36, -5, 4, 2)
+		addSign('StarPort', 'https://youtu.be/uu0tU9OEm0s', -36, -5, 4, 2)
 		addSign('BRTA', 'http://blackrocktravelagency.squarespace.com/', 210, 210, 4, 2)
 
 	} );
