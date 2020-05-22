@@ -74,111 +74,81 @@ function loadEnvironment() {
 	var light = new THREE.AmbientLight(); // soft white light
 	scene.add( light );
 
-	var mtlLoader = new THREE.MTLLoader();
-	mtlLoader.load( 'models/qmb.mtl', function( materials ) {
 
-	  materials.preload();
+	// load the art
+	function addCADModel(file_name_prefix, transX, transY, transZ, rotX, rotY, rotZ, scale){
+		var mtlLoader = new THREE.MTLLoader();
+		mtlLoader.load( file_name_prefix+'.mtl', function( materials ) {
 
-	  var objLoader = new THREE.OBJLoader();
-	  objLoader.setMaterials( materials );
-	  objLoader.load( 'models/qmb.obj', function ( object ) {
+		  materials.preload();
 
-	    object.rotation.x = -Math.PI/2;
-		object.translateY(30);
-		object.translateX(-20);
-		object.scale.set(0.1,0.1,0.1);
-		scene.add( object );
-	  } );
+		  var objLoader = new THREE.OBJLoader();
+		  objLoader.setMaterials( materials );
+		  objLoader.load( file_name_prefix+'.obj', function ( object ) {
 
-	} );
+		    object.rotation.x = rotX;
+			object.rotation.y = rotY;
+			object.rotation.z = rotZ;
+			object.translateX(transX);
+			object.translateY(transY);
+			object.translateZ(transZ);
+			object.scale.set(scale,scale,scale);
+			scene.add( object );
+		  } );
 
-	var mtlLoader = new THREE.MTLLoader();
-	mtlLoader.load( 'models/StarportV3.mtl', function( materials ) {
+		} );
+	}
 
-	  materials.preload();
+	addCADModel('models/qmb', -20, 30, 0, -Math.PI/2, 0, 0, 0.1)
+	addCADModel('models/StarportV3', -40, 11, 10, 0, 0, 0, 1)
+	addCADModel('models/piper_pa18', 200, 0, 200, 0, 0, 0, 1)
+	addCADModel('models/portapotty_v1', 200, 2, 0, 0, 0, 0, 1)
 
-	  var objLoader = new THREE.OBJLoader();
-	  objLoader.setMaterials( materials );
-	  objLoader.load( 'models/StarportV3.obj', function ( object ) {
 
-	    // object.rotation.x = -Math.PI/2;
-		object.translateY(11);
-		object.translateX(-40);
-		object.translateZ(10);
-		// object.scale.set(0.1,0.1,0.1);
-		scene.add( object );
-
-	  } );
-
-	} );
-
+	//load the signs
 	var loader = new THREE.FontLoader();
 	loader.load( 'fonts/helvetiker_bold.typeface.json', function ( font ) {
 
-		var  textGeo = new THREE.TextGeometry('QMB', {
-            size: 10,
-            height: 5,
-            curveSegments: 6,
-            font: font,
-    	});
-    	var realTextGeo = new THREE.BufferGeometry
+		function addSign(name, url, x_c, z_c, w, x_o){
+			var  textGeo = new THREE.TextGeometry(name, {
+	            size: 10,
+	            height: 5,
+	            curveSegments: 6,
+	            font: font,
+	    	});
+	    	var realTextGeo = new THREE.BufferGeometry
 
-    	realTextGeo.fromGeometry(textGeo)
-		var color = new THREE.Color( 0xe25822 );
-		var  textMaterial = new THREE.MeshBasicMaterial({ color: color });
-		var  text = new THREE.Mesh(realTextGeo , textMaterial);
-		text.scale.set(0.05,0.05,0.05);
-		text.translateX(-12);
-		text.translateZ(-20);
-		text.translateY(0.1);
-		text.userData.URL = "https://quantum-multiverse-bifurcator.appspot.com"
-		scene.add(text);
-		objects.push(text);
+	    	realTextGeo.fromGeometry(textGeo)
+			var color = new THREE.Color( 0xe25822 );
+			var  textMaterial = new THREE.MeshBasicMaterial({ color: color });
+			var  text = new THREE.Mesh(realTextGeo , textMaterial);
+			text.scale.set(0.05,0.05,0.05);
+			text.translateX(x_c);
+			text.translateZ(z_c);
+			text.translateY(0.1);
+			text.userData.URL = url
+			scene.add(text);
+			objects.push(text);
 
-		var geometry = new THREE.BoxGeometry( 2, 1.5, 0.5 );
-		var material = new THREE.MeshBasicMaterial( {color: 0x222222} );
-		var cube = new THREE.Mesh( geometry, material );
-		cube.translateX(-11.4);
-		cube.translateZ(-20.1);
-		cube.userData.URL = "https://quantum-multiverse-bifurcator.appspot.com"
-		scene.add( cube );
-		objects.push(cube);
+			var geometry = new THREE.BoxGeometry( w, 1.5, 0.5 );
+			var material = new THREE.MeshBasicMaterial( {color: 0x222222} );
+			var cube = new THREE.Mesh( geometry, material );
+			cube.translateX(x_c+x_o);
+			cube.translateZ(z_c-0.1);
+			cube.userData.URL = url
+			scene.add( cube );
+			objects.push(cube);
+		}
 
+		addSign('QMB', 'https://quantum-multiverse-bifurcator.appspot.com', -12, -20, 2, 0.6)
+		addSign('StarPort', 'https://youtu.be/bcIZu4xEqUM', -36, -5, 4, 2)
+		addSign('BRTA', 'http://blackrocktravelagency.squarespace.com/', 210, 210, 4, 2)
 
-		// StarPort
-		var  textGeo = new THREE.TextGeometry('StarPort', {
-            size: 10,
-            height: 5,
-            curveSegments: 6,
-            font: font,
-    	});
-    	var realTextGeo = new THREE.BufferGeometry
-
-    	realTextGeo.fromGeometry(textGeo)
-		var color = new THREE.Color( 0xe25822 );
-		var  textMaterial = new THREE.MeshBasicMaterial({ color: color });
-		var  text = new THREE.Mesh(realTextGeo , textMaterial);
-		text.scale.set(0.05,0.05,0.05);
-		text.translateX(-36);
-		text.translateZ(-5.0);
-		text.translateY(0.1);
-		text.userData.URL = "https://youtu.be/bcIZu4xEqUM"
-		scene.add(text);
-		objects.push(text);
-
-		var geometry = new THREE.BoxGeometry( 4, 1.5, 0.5 );
-		var material = new THREE.MeshBasicMaterial( {color: 0x222222} );
-		var cube = new THREE.Mesh( geometry, material );
-		cube.translateX(-34);
-		cube.translateZ(-5.1);
-		cube.userData.URL = "https://youtu.be/bcIZu4xEqUM"
-		scene.add( cube );
-		objects.push(cube);
 	} );
 
 
 
-
+	// load the map
 	var geometry = new THREE.PlaneGeometry( 1000, 1000 );
 	var material = new THREE.MeshBasicMaterial( {color: 0xffff00, side: THREE.DoubleSide} );
 	var img = new THREE.MeshBasicMaterial({ //CHANGED to MeshBasicMaterial
